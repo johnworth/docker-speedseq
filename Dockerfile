@@ -101,4 +101,3 @@ RUN git clone --recursive  https://github.com/ekg/vcflib && \
     sudo cp bin/* /usr/local/bin/
 
 
-# Install vcflib
