@@ -34,14 +34,6 @@ RUN git clone --recursive git://github.com/ekg/freebayes.git && \
     cp -r bin/* /usr/local/bin/
 
 
-# Install gemini
-
-#RUN curl -o gemini_install.py -OL https://raw.github.com/arq5x/gemini/master/gemini/scripts/gemini_install.py && \
-#    python2.7 gemini_install.py /usr/local /usr/local/share/gemini && \
-#    echo "export PATH=$PATH:/usr/local/gemini/bin" >> ~/.bashrc && \
-#    gemini update
-
-
 # Install lumpy
 
 RUN curl -OL ftp://ftp.gnu.org/gnu/gsl/gsl-1.9.tar.gz && \
@@ -49,7 +41,7 @@ RUN curl -OL ftp://ftp.gnu.org/gnu/gsl/gsl-1.9.tar.gz && \
     cd gsl-1.9 && \
     ./configure && sudo make && sudo make install
 
-RUN curl -OL https://github.com/arq5x/lumpy-sv/archive/v0.1.5.tar.gz && \
+RUN curl -o lumpy-sv-0.1.5.tar.gz -OL https://github.com/arq5x/lumpy-sv/archive/v0.1.5.tar.gz && \
     tar -xvf lumpy-sv-0.1.5.tar.gz && \
     cd lumpy-sv-0.1.5 && \
     make && \
@@ -83,7 +75,8 @@ RUN git clone git://github.com/GregoryFaust/samblaster.git && \
 
 # Install snpff
 
-RUN apt-get install -y openjdk-7-jre
+RUN apt-get install -y openjdk-7-jre-headless
+RUN apt-get install -y unzip
 
 RUN wget http://sourceforge.net/projects/snpeff/files/snpEff_latest_core.zip && \
     unzip snpEff_latest_core.zip && \
@@ -101,3 +94,19 @@ RUN git clone --recursive  https://github.com/ekg/vcflib && \
     sudo cp bin/* /usr/local/bin/
 
 
+# Install gemini
+
+RUN curl -o gemini_install.py -OL https://raw.github.com/arq5x/gemini/master/gemini/scripts/gemini_install.py && \
+    python2.7 gemini_install.py /usr/local /usr/local/share/gemini && \
+    echo "export PATH=$PATH:/usr/local/gemini/bin" >> ~/.bashrc && \
+    gemini update
+
+
+# Install speedseq
+
+RUN git clone https://github.com/cc2qe/speedseq.git && \
+    cd speedseq && \
+    python speedseq_setup.py && \
+    cp -r bin/* /usr/local/bin/
+
+CMD ['/usr/local/bin/speedseq']
