@@ -104,9 +104,8 @@ RUN curl -o gemini_install.py -OL https://raw.github.com/arq5x/gemini/master/gem
 
 # Install speedseq
 
-RUN git clone https://github.com/cc2qe/speedseq.git && \
-    cd speedseq && \
-    python speedseq_setup.py && \
+RUN git clone https://github.com/johnworth/speedseq.git && \
+    cd speedseq && python speedseq_setup.py && \
     cp -r bin/* /usr/local/bin/
 
-CMD ['/usr/local/bin/speedseq']
+CMD ["/usr/local/bin/speedseq"]
